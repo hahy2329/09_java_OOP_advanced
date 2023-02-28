@@ -14,6 +14,64 @@ public class AccountManager {
 	Scanner scan = new Scanner(System.in);
 	Random ran = new Random();
 	UserManager um = UserManager.getInstance();
+	
+	
+	void removeAcc(int identifer) {
+		int accCntByUser = um.userList[identifer].accCnt;
+		
+		System.out.println("삭제할 계좌 번호를 입력해주세요 : ");
+		String accNumber = scan.next();
+		int idx = -1;
+		
+		if(accCntByUser == 1) { // 계좌번호가 하나일 경우 
+			um.userList[identifer].acc = null;
+			um.userList[identifer].accCnt--;
+			return;
+		}
+		
+		
+		for (int i = 0; i < accCntByUser; i++) {
+			if(um.userList[identifer].acc[i].accNumber.equals(accNumber)) {
+				idx = i;
+			}
+			
+		}
+		
+		if(idx == -1) { // 계좌번호가 틀릴 경우 
+			System.out.println("[메세지] 계좌번호를 다시 확인해주세요.");
+			return;
+		}
+		
+		else { // 계좌가 여러 개일 경우 (여기서부터 오류 발생 55번줄)
+		
+			Account[] temp = um.userList[identifer].acc;
+			um.userList[identifer].acc = new Account[accCntByUser-1];
+			
+			for (int i = 0; i < idx; i++) {
+				um.userList[identifer].acc[i] = temp[i];
+				
+			}
+			System.out.println("accCntByUser : " +  accCntByUser);
+			for (int i = idx; i < accCntByUser; i++) {
+				System.out.println("i : " + i);
+				if(i == 2) {
+					
+					break;
+				}
+				um.userList[identifer].acc[i] = temp[i + 1]; // 0 1 2
+				
+			}
+			temp = null;
+			
+			System.out.println(accNumber +"계좌가 삭제되었습니다.");
+			um.userList[identifer].accCnt--;
+		}
+			
+		
+		
+		
+		
+	}
 
 	void createAcc(int identifier) {
 		
