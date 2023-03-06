@@ -11,7 +11,7 @@ public class Controller {
 	
 	public Controller() {
 		stDAO = new StudentDAO();	
-		insert = new StudentInsert(stDAO);
+		insert = new StudentInsert(stDAO); // 추가 ㅊ
 		select = new StudentSelect(stDAO);
 		selectAll = new StudentSelectAll(stDAO);
 	}
