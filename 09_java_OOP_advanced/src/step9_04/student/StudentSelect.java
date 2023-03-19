@@ -28,4 +28,6 @@ public class StudentSelect {
 		return studentVO != null? true:false;
 		
 	}
+	
+	
 }
